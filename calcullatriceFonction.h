@@ -6,8 +6,7 @@
 #define CALCULATRICE_C_CALCULLATRICEFONCTION_H
 
 
-
-
+int contsize(char *string);
 #endif //CALCULATRICE_C_CALCULLATRICEFONCTION_H
 
 
