@@ -7,6 +7,8 @@
 
 
 int contsize(char *string);
+void parentheses(char *operationn, int nbrchar);
+void checkIsAccepted(char*  operation, int nbrchar);
 #endif //CALCULATRICE_C_CALCULLATRICEFONCTION_H
 
 

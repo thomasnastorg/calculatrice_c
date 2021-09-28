@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
-#include <malloc.h>
+//#include <malloc.h>
+#include <stdlib.h>
 #include "calcullatriceFonction.h"
 
 int main(int argc, char *argv[]) {
@@ -15,11 +16,11 @@ int main(int argc, char *argv[]) {
         // demande a l'utilisateur de saisire
         write(1, "ecriver votre calcule:\n", 23);
        ret = read(0,monOperation,50);
-        printf("%s",monOperation);
+        //parentheses(monOperation, ret);
+       //printf("%s",monOperation);
+    checkIsAccepted(monOperation,ret);
 
-
-
-        free(monOperation);
+     free(monOperation);
 
     return 0;
 }
