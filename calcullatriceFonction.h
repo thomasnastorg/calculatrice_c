@@ -9,8 +9,10 @@
 int contsize(char *string);
 void parentheses(char *operationn, int nbrchar);
 void checkIsAccepted(char*  operation, int nbrchar);
-void typeOperation(char* operation, int positionDeDébut, bool parentheses);
+void typeOperation(char* operation, int positionDeDébut,int binaire);
 void additio(char *operation,int position);
+void move(char* decalageDeString,int positionA,int positionB, int nb);
+void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb);
 #endif //CALCULATRICE_C_CALCULLATRICEFONCTION_H
 
 

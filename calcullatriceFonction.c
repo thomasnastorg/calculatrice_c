@@ -8,7 +8,7 @@
 #include "calcullatriceFonction.h"
 
 
-void typeOperation(char *operation, int i, bool b);
+
 
 // fonction pour determinet la longeur de caracter
 int contsize(char *string){
@@ -26,14 +26,14 @@ void parentheses(char *operation, int nbrchar){
     for (i = 0; i != nbrchar; i++)
     {
         if(operation[i] == 40) {
-            typeOperation(operation,i,true);
+            typeOperation(operation,i,1);
             }
         }
 }
 
-void typeOperation(char* operation, int positionDeDébut, bool parentheses){
+void typeOperation(char* operation, int positionDeDébut,int binaire){
     positionDeDébut = positionDeDébut +1;
-    if(parentheses=true){
+    if(binaire==1){
         while (operation[positionDeDébut]!= 41)
         {
             if (operation[positionDeDébut] == 43)//reperageg d'un addistion
@@ -49,22 +49,22 @@ void typeOperation(char* operation, int positionDeDébut, bool parentheses){
 
 void additio(char *operation,int position) {
     int PremierPositionD, secondPositionD, PremierPositionA, secondPositionA,nbA=0,nbB=0,nbAdd=0, resulta = 0;
-    int nb[9] = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57};
+    int nb[10] = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57};
     PremierPositionD = position - 1;
     PremierPositionA = position + 1;
     int i = position -1;
-    for (int j = 0; j < 9; ++j) {
+    for (int j = 0; j < 10; ++j) {
         if (operation[i] == nb[j]) {
             i--;
-        } else if (j == 9) {
+        } else if (j == 10) {
             secondPositionD = i + 1;
         }
     }
     i = position +1;
-    for (int j = 0; j < 9; ++j) {
+    for (int j = 0; j < 10; ++j) {
         if (operation[i] == nb[j]){
         i++;
-    } else if(j == 9 )
+    } else if(j == 10 )
     {
             secondPositionA = i -1;
     }
@@ -95,18 +95,21 @@ void additio(char *operation,int position) {
 
 
 }
-void moveAndWrit(char* decalageDeString,int positionA, positionB,nb){
+void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb){
 
 
+
+}
+void move(char* decalageDeString,int positionA,int positionB, int nb){
 
 }
 void checkIsAccepted(char*  operation, int nbrchar){
     //
     int i = 0, j = 0;
-    int nbrDec[13] = {40,41,42,43,45,47,48,49,50,51,52,53,56,57};
+    int nbrDec[14] = {40,41,42,43,45,47,48,49,50,51,52,53,56,57};
     for (i = 0; i < nbrchar; ++i)
     {
-        for (j = 0; j <=13 ; ++j)
+        for (j = 0; j <=14 ; ++j)
         {
             if(operation[i] == nbrDec[j])
             {
@@ -116,7 +119,7 @@ void checkIsAccepted(char*  operation, int nbrchar){
             else if (operation[i] == 10)
             {
 
-            }else if (j == 13){
+            }else if (j == 14){
                 write(2, "errore\n", 7);
                 exit(0);
             }
