@@ -53,6 +53,7 @@ void additio(char *operation,int position) {
     PremierPositionD = position - 1;
     PremierPositionA = position + 1;
     int i = position -1;
+
     for (int j = 0; j < 10; ++j) {
         if (operation[i] == nb[j]) {
             i--;
@@ -90,6 +91,7 @@ void additio(char *operation,int position) {
         nbAdd =0;
     }
     resulta = nbA + nbB;
+    puts(resulta);
     //decalage();
         //ratation nb
 
