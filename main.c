@@ -22,7 +22,8 @@ int main(int argc, char *argv[]) {
 
         //parentheses(monOperation, ret);
        //printf("%s",monOperation);
-    checkIsAccepted(str2,ret);
+  //  checkIsAccepted(str2,ret);
+
     additio(str2,2);
      free(monOperation);
 

@@ -48,28 +48,39 @@ void typeOperation(char* operation, int positionDeDébut,int binaire){
 }
 
 void additio(char *operation,int position) {
-    int PremierPositionD, secondPositionD, PremierPositionA, secondPositionA,nbA=0,nbB=0,nbAdd=0, resulta = 0;
+    int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
     int nb[10] = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57};
     PremierPositionD = position - 1;
     PremierPositionA = position + 1;
     int i = position -1;
 
-    for (int j = 0; j < 10; ++j) {
+    // Determination des borne de nbA et nbB
+    for (int j = 0; j < 11; ++j) {
+        if (i == 0){
+            j=11;
+        }
         if (operation[i] == nb[j]) {
             i--;
-        } else if (j == 10) {
-            secondPositionD = i + 1;
+            j = 0;
+            printf("%c\n",operation[i]);
+        } else if( j == 11){
+            secondPositionD = i;
         }
     }
     i = position +1;
-    for (int j = 0; j < 10; ++j) {
-        if (operation[i] == nb[j]){
-        i++;
-    } else if(j == 10 )
-    {
-            secondPositionA = i -1;
-    }
+    for (int j = 0; j < 11; ++j) {
+        if (i == 0){
+            j=11;
+        }
+        if (operation[i] == nb[j]) {
+            i++;
+            j = 0;
+            printf("%c\n",operation[i]);
+        } else if( j == 11 || operation[i]){
+            secondPositionA = i;//corriger car je ne rentre pas dans la condition
+        }
 }
+    //composition de a et b
     for (int j = secondPositionD; j <= PremierPositionD ; ++j)
     {
 
@@ -91,7 +102,7 @@ void additio(char *operation,int position) {
         nbAdd =0;
     }
     resulta = nbA + nbB;
-    puts(resulta);
+    printf("%d",resulta);
     //decalage();
         //ratation nb
 
@@ -105,7 +116,8 @@ void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb){
 void move(char* decalageDeString,int positionA,int positionB, int nb){
 
 }
-void checkIsAccepted(char*  operation, int nbrchar){
+
+void checkIsAccepted(char *operation, int nbrchar){
     //
     int i = 0, j = 0;
     int nbrDec[14] = {40,41,42,43,45,47,48,49,50,51,52,53,56,57};
