@@ -7,7 +7,7 @@
 
 
 int contsize(char *string);
-void parentheses(char *operationn, int nbrchar);
+void parentheses(char *operationn, int *nbrchar);
 void checkIsAccepted(char* operation, int nbrchar);
 void typeOperation(char* operation, int positionDeDebut,int binaire ,int taillTotalle);
 void additio(char *operation,int position);

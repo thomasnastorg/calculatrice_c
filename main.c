@@ -9,7 +9,7 @@ int main() {
 
     char monOperation[50];
     //monOperation = malloc(sizeof(char));
-    int ret;// taille de la chainne
+    int *ret;// taille de la chainne
         if (monOperation == NULL)
         {
             exit(0);
@@ -22,9 +22,10 @@ int main() {
 
         //parentheses(monOperation, ret);
         printf("%s\n",monOperation);
-  //  checkIsAccepted(str2,ret);
+    checkIsAccepted(monOperation,ret);
 
     parentheses(monOperation,ret);
+    typeOperation(monOperation,0,0,ret);
     printf("%s",monOperation);
 
 

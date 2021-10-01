@@ -24,14 +24,18 @@ void prioriter (){
 }
 
 //checkup de parentethe
-void parentheses(char *operation, int nbrchar){
+void parentheses(char *operation, int *nbrchar){
+    int nePasDepasser = nbrchar;
     int i;
-    for (i = 0; i != nbrchar; i++)
+    for (i = 0; i != nePasDepasser; i++)
     {
-        if(operation[i] == 40) {
-            typeOperation(operation,i,1,nbrchar); //EX (125)
-            }
+        if(operation[i] == 40)
+        {
+            typeOperation(operation,i,1,nePasDepasser); //EX (125)
+            i=0;
         }
+    }
+    nbrchar = contsize(&nbrchar);
 }
 
 void typeOperation(char* operation, int position,int parentheses /* si vrai =1 faux =0*/,int taillTotalle ){
@@ -54,6 +58,14 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
             positionBis++;
         }
         delParentheses(operation,position,positionBis,taillTotalle);
+    } else if(parentheses == 0){
+        while (operation[positionBis] != 10){
+            if(operation[positionBis] == 43){
+                additio(operation,positionBis);
+                positionBis = position+1;
+            }
+            positionBis++;
+        }
     }
 
 }
