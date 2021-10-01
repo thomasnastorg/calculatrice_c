@@ -31,53 +31,56 @@ void parentheses(char *operation, int nbrchar){
         }
 }
 
-void typeOperation(char* operation, int positionDeDébut,int binaire){
-    positionDeDébut = positionDeDébut +1;
+void typeOperation(char* operation, int positionDeDebut,int binaire){
+    positionDeDebut = positionDeDebut +1;
     if(binaire==1){
-        while (operation[positionDeDébut]!= 41)
+        while (operation[positionDeDebut]!= 41)
         {
-            if (operation[positionDeDébut] == 43)//reperageg d'un addistion
+            if (operation[positionDeDebut] == 43)//reperageg d'un addistion
             {
-                additio(operation,positionDeDébut);
+                additio(operation,positionDeDebut);
                 //tu vas fair un addition
             }
-            positionDeDébut++;
+            positionDeDebut++;
         }
     }
 
 }
 
-void additio(char *operation,int position) {
+int additio(char *operation,int position) {
     int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
-    int nb[10] = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57};
+    //int nb[10] = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57};
+    char nb[10]= {"0123456789"};
     PremierPositionD = position - 1;
     PremierPositionA = position + 1;
     int i = position -1;
 
     // Determination des borne de nbA et nbB
-    for (int j = 0; j < 11; ++j) {
-        if (i == 0){
-            j=11;
-        }
+    for (int j = 0; j < 10; ++j) {
+
         if (operation[i] == nb[j]) {
-            i--;
-            j = 0;
-            printf("%c\n",operation[i]);
-        } else if( j == 11){
             secondPositionD = i;
+            if (i != 0){
+                i--;
+                j = 0;
+            }
+        } else if( j == 10){
+
         }
     }
     i = position +1;
-    for (int j = 0; j < 11; ++j) {
-        if (i == 0){
-            j=11;
-        }
+    for (int j = 0; j < 10; ++j) {
+
         if (operation[i] == nb[j]) {
-            i++;
-            j = 0;
-            printf("%c\n",operation[i]);
-        } else if( j == 11 || operation[i]){
-            secondPositionA = i;//corriger car je ne rentre pas dans la condition
+            secondPositionA = i;
+            if (i != 0){
+                i++;
+                j = 0;
+            }
+
+
+        } else if( j == 10 || operation[i]){
+           ;//corriger car je ne rentre pas dans la condition
         }
 }
     //composition de a et b
@@ -102,7 +105,7 @@ void additio(char *operation,int position) {
         nbAdd =0;
     }
     resulta = nbA + nbB;
-    printf("%d",resulta);
+    return resulta;
     //decalage();
         //ratation nb
 

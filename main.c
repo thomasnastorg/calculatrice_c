@@ -5,10 +5,10 @@
 #include <string.h>
 #include "calcullatriceFonction.h"
 
-int main(int argc, char *argv[]) {
+int main() {
 
-    char *monOperation=NULL;
-    monOperation = malloc(sizeof(char));
+    char monOperation[50];
+    //monOperation = malloc(sizeof(char));
     int ret;// taille de la chainne
         if (monOperation == NULL)
         {
@@ -17,15 +17,15 @@ int main(int argc, char *argv[]) {
         // demande a l'utilisateur de saisire
         write(1, "ecriver votre calcule:\n", 23);
        ret = read(0,monOperation,50);
-        char str2[ret];
-        strcpy(str2, monOperation);
+        //char str2[ret];
+        //strcpy(str2, monOperation);
 
         //parentheses(monOperation, ret);
-       //printf("%s",monOperation);
+        printf("%s",monOperation);
   //  checkIsAccepted(str2,ret);
 
-    additio(str2,2);
-     free(monOperation);
+    additio(monOperation,2);
+    free(monOperation);
 
     return 0;
 }
