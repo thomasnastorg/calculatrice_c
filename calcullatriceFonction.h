@@ -9,10 +9,11 @@
 int contsize(char *string);
 void parentheses(char *operationn, int nbrchar);
 void checkIsAccepted(char* operation, int nbrchar);
-void typeOperation(char* operation, int positionDeDebut,int binaire);
-int additio(char *operation,int position);
+void typeOperation(char* operation, int positionDeDebut,int binaire ,int taillTotalle);
+void additio(char *operation,int position);
 void move(char* decalageDeString,int positionA,int positionB, int nb);
 void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb);
+void delParentheses(char *operatio, int positionParenthesesA, int positionParenthesesB,int tailleTotale);
 #endif //CALCULATRICE_C_CALCULLATRICEFONCTION_H
 
 

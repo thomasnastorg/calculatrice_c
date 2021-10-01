@@ -21,11 +21,12 @@ int main() {
         //strcpy(str2, monOperation);
 
         //parentheses(monOperation, ret);
-        printf("%s",monOperation);
+        printf("%s\n",monOperation);
   //  checkIsAccepted(str2,ret);
 
-    additio(monOperation,2);
-    free(monOperation);
+    parentheses(monOperation,ret);
+    printf("%s",monOperation);
+
 
     return 0;
 }
