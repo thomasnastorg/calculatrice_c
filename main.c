@@ -5,9 +5,12 @@
 #include <string.h>
 #include "calcullatriceFonction.h"
 
-int main() {
 
+
+int main() {
     char monOperation[50];
+    do{
+
     //monOperation = malloc(sizeof(char));
     int *ret;// taille de la chainne
         if (monOperation == NULL)
@@ -21,13 +24,14 @@ int main() {
         //strcpy(str2, monOperation);
 
         //parentheses(monOperation, ret);
-        printf("%s\n",monOperation);
+      //  printf("%s\n",monOperation);
     checkIsAccepted(monOperation,ret);
 
     parentheses(monOperation,ret);
     typeOperation(monOperation,0,0,ret);
     printf("%s",monOperation);
-
-
+    } while (monOperation[0] != 101 && monOperation[1] != 120 && monOperation[2] != 105 && monOperation[3] != 116);
     return 0;
 }
+
+

@@ -63,13 +63,73 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
             if(operation[positionBis] == 43){
                 additio(operation,positionBis);
                 positionBis = position+1;
+            } else if(operation[positionBis] == 45){
+                soutraction(operation,positionBis);
             }
             positionBis++;
         }
     }
 
 }
+void soutraction(char *operation,int position) {
+    int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
+    char nb[10]= {"0123456789"};
+    PremierPositionD = position - 1;
+    PremierPositionA = position + 1;
+    int i = position -1;
 
+    // Determination des borne de nbA et nbB
+    for (int j = 0; j < 10; ++j) {
+
+        if (operation[i] == nb[j]) {
+            secondPositionD = i;
+            if (i != 0){
+                i--;
+                j = 0;
+            }
+        } else if( j == 10){
+
+        }
+    }
+    i = position +1;
+    for (int j = 0; j < 10; ++j) {
+
+        if (operation[i] == nb[j]) {
+            secondPositionA = i;
+            if (i != 0){
+                i++;
+                j = 0;
+            }
+
+
+        } else if( j == 10 || operation[i]){
+            ;//corriger car je ne rentre pas dans la condition
+        }
+    }
+    //composition de a et b
+    for (int j = secondPositionD; j <= PremierPositionD ; ++j)
+    {
+
+        nbAdd = operation[j] - 48;
+        nbA = nbA+nbAdd;
+        if(j <PremierPositionD){
+            nbA=   nbA * 10;
+        }
+        nbAdd =0;
+    }
+    for (int j = PremierPositionA; j <= secondPositionA ; ++j)
+    {
+
+        nbAdd = operation[j] - 48;
+        nbB = nbB+nbAdd;
+        if(j <secondPositionA){
+            nbB=   nbB * 10;
+        }
+        nbAdd =0;
+    }
+    resulta = nbA - nbB;
+    moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
+}
 void additio(char *operation,int position) {
     int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
     char nb[10]= {"0123456789"};
@@ -129,6 +189,7 @@ void additio(char *operation,int position) {
     resulta = nbA + nbB;
     moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
 }
+
 void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb){
     char *transForme;
     char buffer[20];
@@ -176,20 +237,24 @@ void move(char* decalageDeString,int positionA,int positionB, int nb){
 void checkIsAccepted(char *operation, int nbrchar){
     //
     int i = 0, j = 0;
-    int nbrDec[14] = {40,41,42,43,45,47,48,49,50,51,52,53,56,57};
+    int nbrDec[17] = {32,40,41,42,43,45,47,48,49,50,51,52,53,54,55,56,57};
     for (i = 0; i < nbrchar; ++i)
     {
-        for (j = 0; j <=14 ; ++j)
+        for (j = 0; j <=17 ; ++j)
         {
             if(operation[i] == nbrDec[j])
             {
                 i++;
-                j=0;
+                j= -1;
             }
             else if (operation[i] == 10)
             {
 
-            }else if (j == 14){
+            }
+            else if(operation[0] == 101 && operation[1] == 120 && operation[2] == 105 && operation[3] == 116){
+                exit(0);
+            }
+            else if (j == 17){
                 write(2, "errore\n", 7);
                 exit(0);
             }
