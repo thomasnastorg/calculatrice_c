@@ -8,7 +8,7 @@
 
 
 int main() {
-    char monOperation[50];
+    char monOperation[100];
     do{
 
     //monOperation = malloc(sizeof(char));
