@@ -13,6 +13,7 @@ void typeOperation(char* operation, int positionDeDebut,int binaire ,int taillTo
 void additio(char *operation,int position);
 void soutraction(char *operation,int position);
 void multiplication(char *operation,int position);
+void division(char *operation,int position);
 void move(char* decalageDeString,int positionA,int positionB, int nb);
 void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb);
 void delParentheses(char *operatio, int positionParenthesesA, int positionParenthesesB,int tailleTotale);
