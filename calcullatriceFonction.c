@@ -60,6 +60,7 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
         }
         delParentheses(operation,position,positionBis,taillTotalle);
     } else if(parentheses == 0){
+        positionBis = 0;
         while (operation[positionBis] != 10){
             if(operation[positionBis] == 42){
                 multiplication(operation,positionBis);
@@ -164,16 +165,16 @@ void additio(char *operation,int position) {
         }
     }
     i = position +1;
-    for (int j = 0; j < 10; ++j) {
-
+    int decalageJ = 0;
+    for (int j = 0; j < 10; j++) {
+        if(decalageJ == 1){
+            j=0;
+            decalageJ=0;
+        }
         if (operation[i] == nb[j]) {
             secondPositionA = i;
-            if (i != 0){
-                i++;
-                j = 0;
-            }
-
-
+            i++;
+            decalageJ=1;
         } else if( j == 10 || operation[i]){
            ;//corriger car je ne rentre pas dans la condition
         }
