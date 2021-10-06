@@ -1,7 +1,7 @@
 calculatrice 
 
 gestion operation
-    adition avec le singne +
+    adition avec le singne +   
     soutraction avec le singne -
     divition avec le singne /
     multiplicationavec le singne *
