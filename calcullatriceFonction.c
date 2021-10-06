@@ -106,16 +106,19 @@ void soutraction(char *operation,int position) {
         }
     }
     i = position +1;
+    int decalageJ = 0;
     for (int j = 0; j < 10; ++j) {
-
+        if(decalageJ == 1){
+            j=0;
+            decalageJ=0;
+        }
         if (operation[i] == nb[j]) {
             secondPositionA = i;
-            if (i != 0){
-                i++;
-                j = 0;
+            i++;
+            decalageJ=1;
+            if(j==9){ // Cas spécial où j=9, on veut continuer le test pour la position suivante, donc on remet j=0 pour continuer le for
+                j=0;
             }
-
-
         } else if( j == 10 || operation[i]){
             ;//corriger car je ne rentre pas dans la condition
         }
@@ -175,6 +178,9 @@ void additio(char *operation,int position) {
             secondPositionA = i;
             i++;
             decalageJ=1;
+            if(j==9){ // Cas spécial où j=9, on veut continuer le test pour la position suivante, donc on remet j=0 pour continuer le for
+                j=0;
+            }
         } else if( j == 10 || operation[i]){
            ;//corriger car je ne rentre pas dans la condition
         }
