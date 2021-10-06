@@ -63,15 +63,18 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
         while (operation[positionBis] != 10){
             if(operation[positionBis] == 42){
                 multiplication(operation,positionBis);
-
+                positionBis = position+1;
             }
+            positionBis++;
         }
+        positionBis = 0;
         while (operation[positionBis] != 10){
             if(operation[positionBis] == 43){
                 additio(operation,positionBis);
                 positionBis = position+1;
             } else if(operation[positionBis] == 45){
                 soutraction(operation,positionBis);
+                positionBis = position+1;
             }
             positionBis++;
         }
