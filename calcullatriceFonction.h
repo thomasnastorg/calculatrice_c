@@ -19,9 +19,6 @@ void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb);
 void delParentheses(char *operatio, int positionParenthesesA, int positionParenthesesB,int tailleTotale);
 void my_reverse(char str[], int len);
 char* itoa(int num, char* str, int base);
-void soutraction2(char *operation,int position,int premierNombreEstNegatif);
-void multiplication2(char *operation,int position,int premierNombreEstNegatif);
-void division2(char *operation,int position,int premierNombreEstNegatif);
 #endif //CALCULATRICE_C_CALCULLATRICEFONCTION_H
 
 
