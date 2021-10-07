@@ -11,4 +11,4 @@ gestion erreur
     tout autre caractère qu'un nombre, signé ou parenthèse declenche une erreur
 
 
-vous pouvez arrêter la calculatrice en erivan **exit**
+vous pouvez arrêter la calculatrice en ecrivan **exit**

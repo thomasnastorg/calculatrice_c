@@ -8,7 +8,7 @@
 #include "calcullatriceFonction.h"
 
 
-// fonction pour determinet la longeur de caracter
+// fonction pour determiner la longeur de caracter
 int contsize(char *string){
     int i;
     for ( i=0; string[i] != 0; i++)
@@ -109,6 +109,8 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
         }
 
     }
+}
+
     void soutraction(char *operation, int position) {
         int PremierPositionD = 0, secondPositionD = 0, PremierPositionA = 0, secondPositionA = 0, nbA = 0, nbB = 0, nbAdd = 0, resulta = 0;
         char nb[10] = {"0123456789"};
