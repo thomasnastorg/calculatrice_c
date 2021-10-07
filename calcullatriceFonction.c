@@ -84,9 +84,15 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
                 premierNombreEstNegatif = 1;
             } else {
                 if(operation[positionBis] == 43){ // Enfin : check si on va additionner ou soustraire
+                    if(operation[positionBis +1]== 45)
+                    {
+                    move(operation,positionBis,taillTotalle);
+                    positionBis = 1;
+                    } else{
                     additio(operation,positionBis);
                     premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
                     positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
+                    }
                 } else if(operation[positionBis] == 45){
                     //soutraction(operation,positionBis);
                     soutraction2(operation,positionBis,premierNombreEstNegatif);
@@ -167,11 +173,17 @@ void additio(char *operation,int position) {
     int i = position -1;
 
     // Determination des borne de nbA et nbB
+    int decalageJ = 0;
     for (int j = 0; j < 10; ++j) {
 
+        if(decalageJ == 1){
+            j=0;
+            decalageJ=0;
+        }
         if (operation[i] == nb[j]) {
             secondPositionD = i;
             if (i != 0){
+                decalageJ =1;
                 i--;
                 j = 0;
             }
@@ -180,7 +192,7 @@ void additio(char *operation,int position) {
         }
     }
     i = position +1;
-    int decalageJ = 0;
+     decalageJ = 0;
     for (int j = 0; j < 10; j++) {
         if(decalageJ == 1){
             j=0;
@@ -367,6 +379,16 @@ void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb){
 
 
 }
+void move(char* operatio,int positionA, int nb){
+   int positionbis = positionA,fin;
+    for (int i = 0; i <= nb-positionA ; ++i)
+    {
+        operatio[positionbis]= operatio[positionbis+1];
+        positionbis++;
+        fin = i ;
+    }
+    operatio[fin +1 ] =  NULL;
+}
 void delParentheses(char *operatio, int positionParenthesesA, int positionParenthesesB,int tailleTotale){
     int incrmentationA = positionParenthesesA,incrmentationB =positionParenthesesA+1;
     for (int i = 0; i < tailleTotale-positionParenthesesA ; ++i)
@@ -384,9 +406,7 @@ void delParentheses(char *operatio, int positionParenthesesA, int positionParent
     }
     operatio[incrmentationB]= NULL;
 }
-void move(char* decalageDeString,int positionA,int positionB, int nb){
 
-}
 
 int checkIsAccepted(char *operation, int nbrchar){
     //

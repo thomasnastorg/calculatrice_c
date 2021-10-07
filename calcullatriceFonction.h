@@ -14,7 +14,7 @@ void additio(char *operation,int position);
 void soutraction(char *operation,int position);
 void multiplication(char *operation,int position);
 void division(char *operation,int position);
-void move(char* decalageDeString,int positionA,int positionB, int nb);
+void move(char* operatio,int positionA, int nb);
 void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb);
 void delParentheses(char *operatio, int positionParenthesesA, int positionParenthesesB,int tailleTotale);
 void my_reverse(char str[], int len);
