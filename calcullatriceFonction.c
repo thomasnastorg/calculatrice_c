@@ -76,6 +76,7 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
             }
             positionBis++;
         }
+        // ICI ICI
         positionBis = 0;
         while (operation[positionBis] != 10){
             premierNombreEstNegatif = 0;
