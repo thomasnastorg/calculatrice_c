@@ -119,12 +119,17 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
         int i = position - 1;
 
         // Determination des borne de nbA et nbB
+        int decalageJ = 0;
         for (int j = 0; j < 10; ++j) {
-
+            if (decalageJ == 1) {
+                j = 0;
+                decalageJ = 0;
+            }
             if (operation[i] == nb[j]) {
                 secondPositionD = i;
                 if (i != 0) {
                     i--;
+                    decalageJ = 1;
                     j = 0;
                 }
             } else if (j == 10) {
@@ -132,7 +137,7 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
             }
         }
         i = position + 1;
-        int decalageJ = 0;
+        decalageJ = 0;
         for (int j = 0; j < 10; ++j) {
             if (decalageJ == 1) {
                 j = 0;
@@ -178,7 +183,6 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
         // Determination des borne de nbA et nbB
         int decalageJ = 0;
         for (int j = 0; j < 10; ++j) {
-
             if (decalageJ == 1) {
                 j = 0;
                 decalageJ = 0;
@@ -245,12 +249,17 @@ void multiplication(char *operation,int position) {
     int i = position -1;
 
     // Determination des borne de nbA et nbB
+    int decalageJ = 0;
     for (int j = 0; j < 10; ++j) {
-
+        if (decalageJ == 1) {
+            j = 0;
+            decalageJ = 0;
+        }
         if (operation[i] == nb[j]) {
             secondPositionD = i;
             if (i != 0){
                 i--;
+                decalageJ = 1;
                 j = 0;
             }
         } else if( j == 10){
@@ -258,16 +267,19 @@ void multiplication(char *operation,int position) {
         }
     }
     i = position +1;
+    decalageJ = 0;
     for (int j = 0; j < 10; ++j) {
-
+        if (decalageJ == 1) {
+            j = 0;
+            decalageJ = 0;
+        }
         if (operation[i] == nb[j]) {
             secondPositionA = i;
             if (i != 0){
                 i++;
+                decalageJ = 1;
                 j = 0;
             }
-
-
         } else if( j == 10 || operation[i]){
             ;//corriger car je ne rentre pas dans la condition
         }
@@ -306,29 +318,37 @@ void division(char *operation,int position) {
     int i = position -1;
 
     // Determination des borne de nbA et nbB
+    int decalageJ = 0;
     for (int j = 0; j < 10; ++j) {
-
+        if (decalageJ == 1) {
+            j = 0;
+            decalageJ = 0;
+        }
         if (operation[i] == nb[j]) {
             secondPositionD = i;
             if (i != 0){
                 i--;
+                decalageJ=1;
                 j = 0;
             }
         } else if( j == 10){
 
         }
     }
+    decalageJ=0;
     i = position +1;
     for (int j = 0; j < 10; ++j) {
-
+        if (decalageJ == 1) {
+            j = 0;
+            decalageJ = 0;
+        }
         if (operation[i] == nb[j]) {
             secondPositionA = i;
             if (i != 0){
                 i++;
+                decalageJ=1;
                 j = 0;
             }
-
-
         } else if( j == 10 || operation[i]){
             ;//corriger car je ne rentre pas dans la condition
         }
@@ -366,25 +386,35 @@ void puissance(char *operation,int position) {
     int i = position -1;
 
     // Determination des borne de nbA et nbB
+    int decalageJ = 0;
     for (int j = 0; j < 10; ++j) {
-
+        if (decalageJ == 1) {
+            j = 0;
+            decalageJ = 0;
+        }
         if (operation[i] == nb[j]) {
             secondPositionD = i;
             if (i != 0){
                 i--;
+                decalageJ=1;
                 j = 0;
             }
         } else if( j == 10){
 
         }
     }
+    decalageJ=0;
     i = position +1;
     for (int j = 0; j < 10; ++j) {
-
+        if (decalageJ == 1) {
+            j = 0;
+            decalageJ = 0;
+        }
         if (operation[i] == nb[j]) {
             secondPositionA = i;
             if (i != 0){
                 i++;
+                decalageJ=1;
                 j = 0;
             }
 
