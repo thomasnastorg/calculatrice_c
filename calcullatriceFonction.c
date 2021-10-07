@@ -84,8 +84,7 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
                 premierNombreEstNegatif = 1;
             } else {
                 if(operation[positionBis] == 43){ // Enfin : check si on va additionner ou soustraire
-                    //additio(operation,positionBis);
-                    additio2(operation,positionBis,premierNombreEstNegatif);
+                    additio(operation,positionBis);
                     premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
                     positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
                 } else if(operation[positionBis] == 45){
@@ -385,9 +384,9 @@ void move(char* decalageDeString,int positionA,int positionB, int nb){
 
 }
 
-void checkIsAccepted(char *operation, int nbrchar){
+int checkIsAccepted(char *operation, int nbrchar){
     //
-    int i = 0, j = 0;
+    int i = 0, j = 0, ok;
     int nbrDec[17] = {32,40,41,42,43,45,47,48,49,50,51,52,53,54,55,56,57};
     for (i = 0; i < nbrchar; ++i)
     {
@@ -407,10 +406,11 @@ void checkIsAccepted(char *operation, int nbrchar){
             }
             else if (j == 17){
                 write(2, "errore\n", 7);
-                exit(0);
+                ok = 1;
             }
         }
     }
+    return ok;
 }
 void my_reverse(char str[], int len)
 {
@@ -470,18 +470,13 @@ void soutraction2(char *operation,int position,int premierNombreEstNegatif) {
     int i = position -1;
 
     // Determination des borne de nbA et nbB
-    int decalageJ = 0;
     for (int j = 0; j < 10; ++j) {
-        if(decalageJ == 1){
-            j=0;
-            decalageJ=0;
-        }
+
         if (operation[i] == nb[j]) {
             secondPositionD = i;
             if (i != 0 + premierNombreEstNegatif){ // ATTENTION : condition change si le nombre Devant est négatif. ALORS i != 1
                                                     // Utilisation de premierNombreEstNegatif = 1 ici si premier nombre négatif
                 i--;
-                decalageJ=1;
                 j = 0;
             }
         } else if( j == 10){
@@ -489,7 +484,7 @@ void soutraction2(char *operation,int position,int premierNombreEstNegatif) {
         }
     }
     i = position +1;
-    decalageJ = 0; // permet de pouvoir reboucler de j=0 à j=9 pour toutes les boucles !!!
+    int decalageJ = 0; // permet de pouvoir reboucler de j=0 à j=9 pour toutes les boucles !!!
     for (int j = 0; j < 10; ++j) {
         if(decalageJ == 1){
             j=0;
@@ -526,13 +521,16 @@ void soutraction2(char *operation,int position,int premierNombreEstNegatif) {
         nbAdd =0;
     }
     if(premierNombreEstNegatif==1){ // Changement si le premier nb est négatif ou pas
-        //resulta = (-nbA-nbB)*-1; // cas spécial 1er nb négatif : c'est pour contrer l'ajout d'un 2e '-' avec moveAndWrite
-        resulta = nbA + nbB; // equilvalent à la ligne au dessus
+        resulta = (-nbA-nbB)*-1; // cas spécial 1er nb négatif : c'est pour contrer l'ajout d'un 2e '-' avec moveAndWrite
     } else {
         resulta = nbA - nbB;
     }
+    printf("nbA vaut %d\n",nbA);
+    printf("nbB vaut %d\n",nbB);
+    printf("resulta vaut %d\n",resulta);
 
     moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
+    printf("Etat nouvelle chaine : %s\n",operation);
 }
 void additio2(char *operation,int position,int premierNombreEstNegatif) {
     int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
@@ -542,17 +540,12 @@ void additio2(char *operation,int position,int premierNombreEstNegatif) {
     int i = position -1;
 
     // Determination des borne de nbA et nbB
-    int decalageJ = 0;
     for (int j = 0; j < 10; ++j) {
-        if(decalageJ == 1){
-            j=0;
-            decalageJ=0;
-        }
+
         if (operation[i] == nb[j]) {
             secondPositionD = i;
-            if (i != 0 + premierNombreEstNegatif){
+            if (i != 0){
                 i--;
-                decalageJ=1;
                 j = 0;
             }
         } else if( j == 10){
@@ -560,7 +553,7 @@ void additio2(char *operation,int position,int premierNombreEstNegatif) {
         }
     }
     i = position +1;
-    decalageJ = 0;
+    int decalageJ = 0;
     for (int j = 0; j < 10; j++) {
         if(decalageJ == 1){
             j=0;
@@ -596,17 +589,8 @@ void additio2(char *operation,int position,int premierNombreEstNegatif) {
         }
         nbAdd =0;
     }
-    if(premierNombreEstNegatif==1){
-        resulta = -nbA + nbB;
-        if(resulta<0){ // Pour compenser le signe '-' ajouté dans moveAndWrite
-            resulta*=-1;
-        }
-    }else{
-        resulta = nbA + nbB;
-    }
-    printf("resulta + : %d\n",resulta);
+    resulta = nbA + nbB;
     moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
-    printf("chaine + : %s\n",operation);
 }
 
 void multiplication2(char *operation,int position,int premierNombreEstNegatif) {
