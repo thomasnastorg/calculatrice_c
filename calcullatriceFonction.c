@@ -64,10 +64,9 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
             }
             positionBis++;
         }
-
+        positionBis = 1;
         while (operation[positionBis] != 10) {
-            if (operation[0] == 45 &&
-                positionBis == 0) { // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
+            if (operation[0] == 45 &&positionBis == 0) { // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
             } else {
                 if (operation[positionBis] == 42) { // Enfin : check si on va multiplier ou diviser
                     multiplication(operation, positionBis);
