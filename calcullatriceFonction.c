@@ -415,9 +415,10 @@ void puissance(char *operation,int position) {
         nbAdd =0;
     }
     resulta = nbA;
-    for (int j = 0; j < nbB; ++j) {
+    for (int j = 0; j < nbB-1; ++j) {
         resulta = resulta * nbA;
     }
+
     moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
 }
 void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb){
