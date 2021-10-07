@@ -588,6 +588,9 @@ void additio2(char *operation,int position,int premierNombreEstNegatif) {
         }
         nbAdd =0;
     }
+    if(secondPositionD >0 ||  operation[secondPositionD-1] == "-"){
+        nbA = -nbA;
+    }
     for (int j = PremierPositionA; j <= secondPositionA ; ++j)
     {
 
@@ -598,17 +601,12 @@ void additio2(char *operation,int position,int premierNombreEstNegatif) {
         }
         nbAdd =0;
     }
-    if(premierNombreEstNegatif==1){ // PB ici
-        resulta = -nbA + nbB;
-        if(resulta<0){ // Pour compenser le signe '-' ajouté dans moveAndWrite
-            resulta*=-1;
-        }
-    }else{
+
         resulta = nbA + nbB;
-    }
-    printf("resulta + : %d\n",resulta);
+
+
     moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
-    printf("chaine + : %s\n",operation);
+
 }
 
 void multiplication2(char *operation,int position,int premierNombreEstNegatif) {
