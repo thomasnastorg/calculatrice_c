@@ -84,8 +84,7 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
                 premierNombreEstNegatif = 1;
             } else {
                 if(operation[positionBis] == 43){ // Enfin : check si on va additionner ou soustraire
-                    //additio(operation,positionBis);
-                    additio2(operation,positionBis,premierNombreEstNegatif);
+                    additio(operation,positionBis);
                     premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
                     positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
                 } else if(operation[positionBis] == 45){
@@ -206,6 +205,10 @@ void additio(char *operation,int position) {
             nbA=   nbA * 10;
         }
         nbAdd =0;
+    }
+    if(secondPositionD >0 ||  operation[secondPositionD-1] == "-"){
+        nbA = -nbA;
+        secondPositionD = secondPositionD-1;
     }
     for (int j = PremierPositionA; j <= secondPositionA ; ++j)
     {
@@ -536,78 +539,7 @@ void soutraction2(char *operation,int position,int premierNombreEstNegatif) {
 
     moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
 }
-void additio2(char *operation,int position,int premierNombreEstNegatif) {
-    int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
-    char nb[10]= {"0123456789"};
-    PremierPositionD = position - 1;
-    PremierPositionA = position + 1;
-    int i = position -1;
 
-    // Determination des borne de nbA et nbB
-    int decalageJ = 0;
-    for (int j = 0; j < 10; ++j) {
-        if(decalageJ == 1){
-            j=0;
-            decalageJ=0;
-        }
-        if (operation[i] == nb[j]) {
-            secondPositionD = i;
-            if (i != 0 + premierNombreEstNegatif){
-                i--;
-                decalageJ=1;
-                j = 0;
-            }
-        } else if( j == 10){
-
-        }
-    }
-    i = position +1;
-    decalageJ = 0;
-    for (int j = 0; j < 10; j++) {
-        if(decalageJ == 1){
-            j=0;
-            decalageJ=0;
-        }
-        if (operation[i] == nb[j]) {
-            secondPositionA = i;
-            i++;
-            decalageJ=1;
-            j=0;// Cas spécial où j=9, on veut continuer le test pour la position suivante, donc on remet j=0 pour continuer le for
-        } else if( j == 10 || operation[i]){
-            ;//corriger car je ne rentre pas dans la condition
-        }
-    }
-    //composition de a et b
-    for (int j = secondPositionD; j <= PremierPositionD ; ++j)
-    {
-
-        nbAdd = operation[j] - 48;
-        nbA = nbA+nbAdd;
-        if(j <PremierPositionD){
-            nbA=   nbA * 10;
-        }
-        nbAdd =0;
-    }
-    if(secondPositionD >0 ||  operation[secondPositionD-1] == "-"){
-        nbA = -nbA;
-    }
-    for (int j = PremierPositionA; j <= secondPositionA ; ++j)
-    {
-
-        nbAdd = operation[j] - 48;
-        nbB = nbB+nbAdd;
-        if(j <secondPositionA){
-            nbB=   nbB * 10;
-        }
-        nbAdd =0;
-    }
-
-        resulta = nbA + nbB;
-
-
-    moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
-
-}
 
 void multiplication2(char *operation,int position,int premierNombreEstNegatif) {
     int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
