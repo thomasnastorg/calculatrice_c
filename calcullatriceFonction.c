@@ -8,9 +8,6 @@
 #include "calcullatriceFonction.h"
 
 
-
-
-
 // fonction pour determinet la longeur de caracter
 int contsize(char *string){
     int i;
@@ -61,24 +58,39 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
         delParentheses(operation,position,positionBis,taillTotalle);
     } else if(parentheses == 0){
         positionBis = 0;
+        int premierNombreEstNegatif = 0;// signePremierNombre : variable booleenne -
+                                    // 1 : premier nombre négatif / 0 : premier nombre positif
         while (operation[positionBis] != 10){
-            if(operation[positionBis] == 42){
+            premierNombreEstNegatif = 0;
+            if(operation[0] == 45 && positionBis == 0){ // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
+                premierNombreEstNegatif = 1;
+            }
+            if(operation[positionBis] == 42){ // Enfin : check si on va multiplier ou diviser
                 multiplication(operation,positionBis);
-                positionBis = position+1;
+                premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
+                positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
             } else if(operation[positionBis] == 47){
                 division(operation,positionBis);
-                positionBis = position+1;
+                premierNombreEstNegatif = 0;
+                positionBis = -1;
             }
             positionBis++;
         }
         positionBis = 0;
         while (operation[positionBis] != 10){
-            if(operation[positionBis] == 43){
+            premierNombreEstNegatif = 0;
+            if(operation[0] == 45 && positionBis == 0){ // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
+                premierNombreEstNegatif = 1;
+            }
+            if(operation[positionBis] == 43){ // Enfin : check si on va additionner ou soustraire
                 additio(operation,positionBis);
-                positionBis = 0;
+                premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
+                positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
             } else if(operation[positionBis] == 45){
-                soutraction(operation,positionBis);
-                positionBis = 0;
+                //soutraction(operation,positionBis);
+                soutraction2(operation,positionBis,premierNombreEstNegatif);
+                premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
+                positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
             }
             positionBis++;
         }
@@ -442,4 +454,252 @@ char* itoa(int num, char* str, int base)
     my_reverse(str, i);
 
     return str;
+}
+
+// Fonctions + - * / version 02
+
+void soutraction2(char *operation,int position,int premierNombreEstNegatif) {
+    int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
+    char nb[10]= {"0123456789"};
+    PremierPositionD = position - 1;
+    PremierPositionA = position + 1;
+    int i = position -1;
+
+    // Determination des borne de nbA et nbB
+    for (int j = 0; j < 10; ++j) {
+
+        if (operation[i] == nb[j]) {
+            secondPositionD = i;
+            if (i != 0 + premierNombreEstNegatif){ // ATTENTION : condition change si le nombre Devant est négatif. ALORS i != 1
+                                                    // Utilisation de premierNombreEstNegatif = 1 ici si premier nombre négatif
+                i--;
+                j = 0;
+            }
+        } else if( j == 10){
+
+        }
+    }
+    i = position +1;
+    int decalageJ = 0;
+    for (int j = 0; j < 10; ++j) {
+        if(decalageJ == 1){
+            j=0;
+            decalageJ=0;
+        }
+        if (operation[i] == nb[j]) {
+            secondPositionA = i;
+            i++;
+            decalageJ=1;
+            j=0;// Cas spécial où j=9, on veut continuer le test pour la position suivante, donc on remet j=0 pour continuer le for
+        } else if( j == 10 || operation[i]){
+            ;//corriger car je ne rentre pas dans la condition
+        }
+    }
+    //composition de a et b
+    for (int j = secondPositionD+premierNombreEstNegatif; j <= PremierPositionD ; ++j)
+    {
+        nbAdd = operation[j] - 48;
+        nbA = nbA+nbAdd;
+        if(j <PremierPositionD){
+            nbA=   nbA * 10;
+        }
+        nbAdd =0;
+    }
+    for (int j = PremierPositionA; j <= secondPositionA ; ++j)
+    {
+
+        nbAdd = operation[j] - 48;
+        nbB = nbB+nbAdd;
+        if(j <secondPositionA){
+            nbB=   nbB * 10;
+        }
+        nbAdd =0;
+    }
+    if(premierNombreEstNegatif==1){ // Changement si le premier nb est négatif ou pas
+        resulta = - nbA - nbB;
+    } else {
+        resulta = nbA - nbB;
+    }
+
+    moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
+}
+void additio2(char *operation,int position,int premierNombreEstNegatif) {
+    int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
+    char nb[10]= {"0123456789"};
+    PremierPositionD = position - 1;
+    PremierPositionA = position + 1;
+    int i = position -1;
+
+    // Determination des borne de nbA et nbB
+    for (int j = 0; j < 10; ++j) {
+
+        if (operation[i] == nb[j]) {
+            secondPositionD = i;
+            if (i != 0){
+                i--;
+                j = 0;
+            }
+        } else if( j == 10){
+
+        }
+    }
+    i = position +1;
+    int decalageJ = 0;
+    for (int j = 0; j < 10; j++) {
+        if(decalageJ == 1){
+            j=0;
+            decalageJ=0;
+        }
+        if (operation[i] == nb[j]) {
+            secondPositionA = i;
+            i++;
+            decalageJ=1;
+            j=0;// Cas spécial où j=9, on veut continuer le test pour la position suivante, donc on remet j=0 pour continuer le for
+        } else if( j == 10 || operation[i]){
+            ;//corriger car je ne rentre pas dans la condition
+        }
+    }
+    //composition de a et b
+    for (int j = secondPositionD; j <= PremierPositionD ; ++j)
+    {
+
+        nbAdd = operation[j] - 48;
+        nbA = nbA+nbAdd;
+        if(j <PremierPositionD){
+            nbA=   nbA * 10;
+        }
+        nbAdd =0;
+    }
+    for (int j = PremierPositionA; j <= secondPositionA ; ++j)
+    {
+
+        nbAdd = operation[j] - 48;
+        nbB = nbB+nbAdd;
+        if(j <secondPositionA){
+            nbB=   nbB * 10;
+        }
+        nbAdd =0;
+    }
+    resulta = nbA + nbB;
+    moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
+}
+
+void multiplication2(char *operation,int position,int premierNombreEstNegatif) {
+    int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
+    char nb[10]= {"0123456789"};
+    PremierPositionD = position - 1;
+    PremierPositionA = position + 1;
+    int i = position -1;
+
+    // Determination des borne de nbA et nbB
+    for (int j = 0; j < 10; ++j) {
+
+        if (operation[i] == nb[j]) {
+            secondPositionD = i;
+            if (i != 0){
+                i--;
+                j = 0;
+            }
+        } else if( j == 10){
+
+        }
+    }
+    i = position +1;
+    for (int j = 0; j < 10; ++j) {
+
+        if (operation[i] == nb[j]) {
+            secondPositionA = i;
+            if (i != 0){
+                i++;
+                j = 0;
+            }
+
+
+        } else if( j == 10 || operation[i]){
+            ;//corriger car je ne rentre pas dans la condition
+        }
+    }
+    //composition de a et b
+    for (int j = secondPositionD; j <= PremierPositionD ; ++j)
+    {
+
+        nbAdd = operation[j] - 48;
+        nbA = nbA+nbAdd;
+        if(j <PremierPositionD){
+            nbA=   nbA * 10;
+        }
+        nbAdd =0;
+    }
+    for (int j = PremierPositionA; j <= secondPositionA ; ++j)
+    {
+
+        nbAdd = operation[j] - 48;
+        nbB = nbB+nbAdd;
+        if(j <secondPositionA){
+            nbB=   nbB * 10;
+        }
+        nbAdd =0;
+    }
+    resulta = nbA * nbB;
+    moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
+}
+
+void division2(char *operation,int position,int premierNombreEstNegatif) {
+    int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
+    char nb[10]= {"0123456789"};
+    PremierPositionD = position - 1;
+    PremierPositionA = position + 1;
+    int i = position -1;
+
+    // Determination des borne de nbA et nbB
+    for (int j = 0; j < 10; ++j) {
+
+        if (operation[i] == nb[j]) {
+            secondPositionD = i;
+            if (i != 0){
+                i--;
+                j = 0;
+            }
+        } else if( j == 10){
+
+        }
+    }
+    i = position +1;
+    for (int j = 0; j < 10; ++j) {
+
+        if (operation[i] == nb[j]) {
+            secondPositionA = i;
+            if (i != 0){
+                i++;
+                j = 0;
+            }
+
+
+        } else if( j == 10 || operation[i]){
+            ;//corriger car je ne rentre pas dans la condition
+        }
+    }
+    //composition de a et b
+    for (int j = secondPositionD; j <= PremierPositionD ; ++j)
+    {
+
+        nbAdd = operation[j] - 48;
+        nbA = nbA+nbAdd;
+        if(j <PremierPositionD){
+            nbA=   nbA * 10;
+        }
+        nbAdd =0;
+    }
+    for (int j = PremierPositionA; j <= secondPositionA ; ++j)
+    {
+
+        nbAdd = operation[j] - 48;
+        nbB = nbB+nbAdd;
+        if(j <secondPositionA){
+            nbB=   nbB * 10;
+        }
+        nbAdd =0;
+    }
+    resulta = nbA / nbB;
+    moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
 }
