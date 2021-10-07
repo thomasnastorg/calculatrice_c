@@ -57,8 +57,14 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
         delParentheses(operation, position, positionBis, taillTotalle);
     } else if (parentheses == 0) {
         positionBis = 0;
-        int premierNombreEstNegatif = 0;// signePremierNombre : variable booleenne -
-        // 1 : premier nombre négatif / 0 : premier nombre positif
+        while (operation[positionBis] != 10) {
+            if(operation[positionBis] == 94){
+                puissance(operation,positionBis);
+                positionBis = -1;
+            }
+            positionBis++;
+        }
+
         while (operation[positionBis] != 10) {
             if (operation[0] == 45 &&
                 positionBis == 0) { // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
@@ -86,7 +92,6 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
                         positionBis = 1;
                     } else {
                         additio(operation, positionBis);
-                        premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
                         positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
                     }
                 } else if (operation[positionBis] == 45) {
@@ -96,14 +101,13 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
                         positionBis = 1;
                     } else {
                         soutraction(operation, positionBis);
-                        premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
                         positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
                     }
                 }
-                positionBis++;
-            }
-        }
 
+            }
+            positionBis++;
+        }
     }
 }
 
@@ -354,6 +358,68 @@ void division(char *operation,int position) {
     moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
 }
 
+void puissance(char *operation,int position) {
+    int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
+    char nb[10]= {"0123456789"};
+    PremierPositionD = position - 1;
+    PremierPositionA = position + 1;
+    int i = position -1;
+
+    // Determination des borne de nbA et nbB
+    for (int j = 0; j < 10; ++j) {
+
+        if (operation[i] == nb[j]) {
+            secondPositionD = i;
+            if (i != 0){
+                i--;
+                j = 0;
+            }
+        } else if( j == 10){
+
+        }
+    }
+    i = position +1;
+    for (int j = 0; j < 10; ++j) {
+
+        if (operation[i] == nb[j]) {
+            secondPositionA = i;
+            if (i != 0){
+                i++;
+                j = 0;
+            }
+
+
+        } else if( j == 10 || operation[i]){
+            ;//corriger car je ne rentre pas dans la condition
+        }
+    }
+    //composition de a et b
+    for (int j = secondPositionD; j <= PremierPositionD ; ++j)
+    {
+
+        nbAdd = operation[j] - 48;
+        nbA = nbA+nbAdd;
+        if(j <PremierPositionD){
+            nbA=   nbA * 10;
+        }
+        nbAdd =0;
+    }
+    for (int j = PremierPositionA; j <= secondPositionA ; ++j)
+    {
+
+        nbAdd = operation[j] - 48;
+        nbB = nbB+nbAdd;
+        if(j <secondPositionA){
+            nbB=   nbB * 10;
+        }
+        nbAdd =0;
+    }
+    resulta = nbA;
+    for (int j = 0; j < nbB; ++j) {
+        resulta = resulta * nbA;
+    }
+    moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
+}
 void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb){
     char *transForme;
     char buffer[20];
@@ -410,7 +476,7 @@ int checkIsAccepted(char *operation, int nbrchar){
     //
     int i = 0, j = 0;
     int ok = 0;
-    int nbrDec[17] = {32,40,41,42,43,45,47,48,49,50,51,52,53,54,55,56,57};
+    int nbrDec[18] = {32,40,41,42,43,45,47,48,49,50,51,52,53,54,55,56,57,94};
     for (i = 0; i < nbrchar; ++i)
     {
         for (j = 0; j <=17 ; ++j)
@@ -427,7 +493,7 @@ int checkIsAccepted(char *operation, int nbrchar){
             else if(operation[0] == 101 && operation[1] == 120 && operation[2] == 105 && operation[3] == 116){
                 exit(0);
             }
-            else if (j == 17){
+            else if (j == 18){
                 write(2, "errore\n", 7);
                 ok = 1;
             }
@@ -435,6 +501,7 @@ int checkIsAccepted(char *operation, int nbrchar){
     }
     return ok;
 }
+
 void my_reverse(char str[], int len)
 {
     int start, end;
