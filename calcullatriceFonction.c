@@ -463,13 +463,19 @@ void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb){
     for (int i = 0; i < taille; ++i) {
         decalageDeString[position] = transForme[i];
         position++;
+        fin = i;
     }
     for (int i = positionA + taille; i <=tailleChar - positionB+2 ; ++i) {
         decalageDeString[i] =  decalageDeString[decalageDeFin];
         decalageDeFin++;
+        if (fin < i){
         fin = i ;
+        }
     }
-
+    if(decalageDeString[fin +1 ] != 10){
+        decalageDeString[fin +1 ] = 10;
+        fin =fin +1;
+    }
     decalageDeString[fin +1 ] =  NULL;
 
 
