@@ -386,7 +386,7 @@ void move(char* decalageDeString,int positionA,int positionB, int nb){
 
 int checkIsAccepted(char *operation, int nbrchar){
     //
-    int i = 0, j = 0, ok;
+    int i = 0, j = 0, ok=0;
     int nbrDec[17] = {32,40,41,42,43,45,47,48,49,50,51,52,53,54,55,56,57};
     for (i = 0; i < nbrchar; ++i)
     {
