@@ -61,37 +61,38 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
         int premierNombreEstNegatif = 0;// signePremierNombre : variable booleenne -
                                     // 1 : premier nombre négatif / 0 : premier nombre positif
         while (operation[positionBis] != 10){
-            premierNombreEstNegatif = 0;
             if(operation[0] == 45 && positionBis == 0){ // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
                 premierNombreEstNegatif = 1;
+            } else {
+                if(operation[positionBis] == 42){ // Enfin : check si on va multiplier ou diviser
+                    multiplication(operation,positionBis);
+                    premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
+                    positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
+                } else if(operation[positionBis] == 47){
+                    division(operation,positionBis);
+                    premierNombreEstNegatif = 0;
+                    positionBis = -1;
+                }
             }
-            if(operation[positionBis] == 42){ // Enfin : check si on va multiplier ou diviser
-                multiplication(operation,positionBis);
-                premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
-                positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
-            } else if(operation[positionBis] == 47){
-                division(operation,positionBis);
-                premierNombreEstNegatif = 0;
-                positionBis = -1;
-            }
+
             positionBis++;
         }
         // ICI ICI
         positionBis = 0;
         while (operation[positionBis] != 10){
-            premierNombreEstNegatif = 0;
             if(operation[0] == 45 && positionBis == 0){ // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
                 premierNombreEstNegatif = 1;
-            }
-            if(operation[positionBis] == 43){ // Enfin : check si on va additionner ou soustraire
-                additio(operation,positionBis);
-                premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
-                positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
-            } else if(operation[positionBis] == 45){
-                //soutraction(operation,positionBis);
-                soutraction2(operation,positionBis,premierNombreEstNegatif);
-                premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
-                positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
+            } else {
+                if(operation[positionBis] == 43){ // Enfin : check si on va additionner ou soustraire
+                    additio(operation,positionBis);
+                    premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
+                    positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
+                } else if(operation[positionBis] == 45){
+                    //soutraction(operation,positionBis);
+                    soutraction2(operation,positionBis,premierNombreEstNegatif);
+                    premierNombreEstNegatif = 0; // Je relance les tests pour voir si le premier nombre durant la relecture est négatif ou pas
+                    positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
+                }
             }
             positionBis++;
         }
@@ -459,6 +460,7 @@ char* itoa(int num, char* str, int base)
 
 // Fonctions + - * / version 02
 
+// Traitement spécial de soutraction2 car il vérifie si le premier nombre est négatif
 void soutraction2(char *operation,int position,int premierNombreEstNegatif) {
     int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
     char nb[10]= {"0123456789"};
@@ -481,7 +483,7 @@ void soutraction2(char *operation,int position,int premierNombreEstNegatif) {
         }
     }
     i = position +1;
-    int decalageJ = 0;
+    int decalageJ = 0; // permet de pouvoir reboucler de j=0 à j=9 pour toutes les boucles !!!
     for (int j = 0; j < 10; ++j) {
         if(decalageJ == 1){
             j=0;
@@ -497,7 +499,8 @@ void soutraction2(char *operation,int position,int premierNombreEstNegatif) {
         }
     }
     //composition de a et b
-    for (int j = secondPositionD+premierNombreEstNegatif; j <= PremierPositionD ; ++j)
+
+    for (int j = secondPositionD; j <= PremierPositionD ; ++j)
     {
         nbAdd = operation[j] - 48;
         nbA = nbA+nbAdd;
@@ -517,12 +520,16 @@ void soutraction2(char *operation,int position,int premierNombreEstNegatif) {
         nbAdd =0;
     }
     if(premierNombreEstNegatif==1){ // Changement si le premier nb est négatif ou pas
-        resulta = - nbA - nbB;
+        resulta = (-nbA-nbB)*-1; // cas spécial 1er nb négatif : c'est pour contrer l'ajout d'un 2e '-' avec moveAndWrite
     } else {
         resulta = nbA - nbB;
     }
+    printf("nbA vaut %d\n",nbA);
+    printf("nbB vaut %d\n",nbB);
+    printf("resulta vaut %d\n",resulta);
 
     moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
+    printf("Etat nouvelle chaine : %s\n",operation);
 }
 void additio2(char *operation,int position,int premierNombreEstNegatif) {
     int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
