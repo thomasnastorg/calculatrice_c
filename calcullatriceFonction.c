@@ -244,11 +244,12 @@ void multiplication(char *operation,int position) {
     int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0,negative=0;
     char nb[10]= {"0123456789"};
     PremierPositionD = position - 1;
-    if(operation[position +1] == "-"){
+    if(operation[position +1] == 45){
         PremierPositionA = position + 2;
         negative=1;
-    }
+    } else{
     PremierPositionA = position + 1;
+    }
     int i = position -1;
 
     // Determination des borne de nbA et nbB
@@ -270,6 +271,9 @@ void multiplication(char *operation,int position) {
         }
     }
     i = position +1;
+    if(negative = 1 ){
+        i++;
+    }
     decalageJ = 0;
     for (int j = 0; j < 10; ++j) {
         if (decalageJ == 1) {
@@ -306,7 +310,7 @@ void multiplication(char *operation,int position) {
         if(j <secondPositionA){
             nbB=   nbB * 10;
         }
-        if(negative = 1){
+        if(negative == 1){
             nbB = -nbB;
         }
         nbAdd =0;

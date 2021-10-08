@@ -10,6 +10,9 @@
 int main() {
     char monOperation[100];
     int ok = 0;
+    for (int i = 0; i <= 100; ++i) {
+        monOperation[i] = NULL;
+    }
     do{
 
     //monOperation = malloc(sizeof(char));
