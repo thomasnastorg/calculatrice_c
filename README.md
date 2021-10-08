@@ -1,14 +1,27 @@
-calculatrice 
+calculatrice
 
-gestion operation  
-    adition avec le singne +   
-    soutraction avec le singne -  
-    divition avec le singne /  
-    multiplicationavec le singne *  
-    proiriter de l'operation avec ()  
+But du programme : fonctionner comme une calculatrice basique
 
-gestion erreur  
-    tout autre caractère qu'un nombre, signé ou parenthèse declenche une erreur
+gestion operation
 
+    - addition avec le signe +
+    - soustraction avec le signe -
+    - division avec le signe /
+    - multiplication avec le signe * 
+    - puissance avec le signe ^
+    - priorité des operations avec ()
+
+détail operation
+
+    - De multiples calculs d'affilé sont possibles dasn une même saisie utilisateur
+        exemple : 2+5-3 rendra bien 4
+    - La calculatrice lira jusqu'à 50 caractères pour le calcul. 
+        ATTENTION : ne gère pas s'il y a plus de 50 caracteres. 
+        Dans ce cas, elle lira la saisie entrée comme 2 saisies indépendantes.
+    - Pas de gestion des espaces entre les nombres ou les opérations
+    - Pas de gestion de parenthèes dans les parenthèses
+
+gestion erreur
+tout autre caractère qu'un nombre, signé ou parenthèse declenche une erreur
 
 vous pouvez arrêter la calculatrice en ecrivan **exit**
