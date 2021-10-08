@@ -43,7 +43,11 @@ int main() {
           free(resulta); // On n'a plus besoin de la mémoire, on la libère
       }
         sleep(1);
+        for (int i = 0; i <= 100; ++i) {
+            monOperation[i] = NULL;
+        }
     } while (monOperation[0] != 101 && monOperation[1] != 120 && monOperation[2] != 105 && monOperation[3] != 116);
+
     return 0;
 }
 

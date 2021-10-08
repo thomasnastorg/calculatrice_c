@@ -518,11 +518,16 @@ void delParentheses(char *operatio, int positionParenthesesA, int positionParent
 int checkIsAccepted(char *operation, int nbrchar){
     //
     int i = 0, j = 0;
-    int ok = 0;
+    int ok = 0, error =0;
     int nbrDec[18] = {32,40,41,42,43,45,47,48,49,50,51,52,53,54,55,56,57,94};
+
+    if (operation[0] == 10 || operation[0] == 32){
+        error = 1;
+        ok = 1;
+    } else{
     for (i = 0; i < nbrchar; ++i)
     {
-        for (j = 0; j <=17 ; ++j)
+        for (j = 0; j <=18 ; ++j)
         {
             if(operation[i] == nbrDec[j])
             {
@@ -536,11 +541,15 @@ int checkIsAccepted(char *operation, int nbrchar){
             else if(operation[0] == 101 && operation[1] == 120 && operation[2] == 105 && operation[3] == 116){
                 exit(0);
             }
-            else if (j == 18){
-                write(2, "errore\n", 7);
+            else if (j == 18 ){
+               error = 1;
                 ok = 1;
+             }
             }
         }
+    }
+    if(error== 1){
+        write(2, "errore\n", 7);
     }
     return ok;
 }
