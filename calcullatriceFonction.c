@@ -9,7 +9,8 @@
 
 
 // fonction pour determiner la longeur de caracter
-int contsize(char *string){
+int contsize(char *string)
+{
     int i;
     for ( i=0; string[i] != 0; i++)
     {
@@ -17,12 +18,11 @@ int contsize(char *string){
     }
     return i;
 }
-void prioriter (){
 
-}
 
 //checkup de parentethe
-void parentheses(char *operation, int *nbrchar){
+void parentheses(char *operation, int *nbrchar)
+{
     int nePasDepasser = nbrchar;
     int i;
     for (i = 0; i != nePasDepasser; i++)
@@ -36,7 +36,8 @@ void parentheses(char *operation, int *nbrchar){
     nbrchar = contsize(&nbrchar);
 }
 
-void typeOperation(char* operation, int position,int parentheses /* si vrai =1 faux =0*/,int taillTotalle ) {
+void typeOperation(char* operation, int position,int parentheses /* si vrai =1 faux =0*/,int taillTotalle )
+{
 
     int positionBis = position + 1;
 
@@ -57,8 +58,11 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
         delParentheses(operation, position, positionBis, taillTotalle);
     } else if (parentheses == 0) {
         positionBis = 0;
-        while (operation[positionBis] != 10) {
-            if(operation[positionBis] == 94){
+        while (operation[positionBis] != 10)
+        {
+
+            if(operation[positionBis] == 94)
+            {
                 puissance(operation,positionBis);
                 positionBis = -1;
             }
@@ -66,12 +70,14 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
         }
         positionBis = 1;
         while (operation[positionBis] != 10) {
-            if (operation[0] == 45 &&positionBis == 0) { // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
+            if (operation[0] == 45 &&positionBis == 0)
+            { // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
             } else {
                 if (operation[positionBis] == 42) { // Enfin : check si on va multiplier ou diviser
                     multiplication(operation, positionBis);
                     positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
-                } else if (operation[positionBis] == 47) {
+                } else if (operation[positionBis] == 47)
+                {
                     division(operation, positionBis);
                     positionBis = -1;
                 }
@@ -81,24 +87,29 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
         }
         // ICI ICI
         positionBis = 1;
-        while (operation[positionBis] != 10) {
+        while (operation[positionBis] != 10)
+        {
             if (operation[0] == 45 &&
                 positionBis == 0) { // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
             } else {
                 if (operation[positionBis] == 43) { // Enfin : check si on va additionner ou soustraire
-                    if (operation[positionBis + 1] == 45) {
+                    if (operation[positionBis + 1] == 45)
+                    {
                         move(operation, positionBis, taillTotalle);
                         positionBis = 1;
                     } else {
                         additio(operation, positionBis);
                         positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
                     }
-                } else if (operation[positionBis] == 45) {
-                    if (operation[positionBis + 1] == 45) {
+                } else if (operation[positionBis] == 45)
+                {
+                    if (operation[positionBis + 1] == 45)
+                    {
                         operation[positionBis + 1] = 43;
                         move(operation, positionBis, taillTotalle);
                         positionBis = 1;
-                    } else {
+                    } else
+                    {
                         soutraction(operation, positionBis);
                         positionBis = -1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
                     }
@@ -110,7 +121,8 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
     }
 }
 
-    void soutraction(char *operation, int position) {
+    void soutraction(char *operation, int position)
+    {
         int PremierPositionD = 0, secondPositionD = 0, PremierPositionA = 0, secondPositionA = 0, nbA = 0, nbB = 0, nbAdd = 0, resulta = 0;
         char nb[10] = {"0123456789"};
         PremierPositionD = position - 1;
@@ -119,52 +131,63 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
 
         // Determination des borne de nbA et nbB
         int decalageJ = 0;
-        for (int j = 0; j < 10; ++j) {
+        for (int j = 0; j < 10; ++j)
+        {
             if (decalageJ == 1) {
                 j = 0;
                 decalageJ = 0;
             }
-            if (operation[i] == nb[j]) {
+            if (operation[i] == nb[j])
+            {
                 secondPositionD = i;
                 if (i != 0) {
                     i--;
                     decalageJ = 1;
                     j = 0;
                 }
-            } else if (j == 10) {
+            } else if (j == 10)
+            {
 
             }
         }
         i = position + 1;
         decalageJ = 0;
-        for (int j = 0; j < 10; ++j) {
-            if (decalageJ == 1) {
+        for (int j = 0; j < 10; ++j)
+        {
+            if (decalageJ == 1)
+            {
                 j = 0;
                 decalageJ = 0;
             }
-            if (operation[i] == nb[j]) {
+            if (operation[i] == nb[j])
+            {
                 secondPositionA = i;
                 i++;
                 decalageJ = 1;
                 j = 0;// Cas spécial où j=9, on veut continuer le test pour la position suivante, donc on remet j=0 pour continuer le for
-            } else if (j == 10 || operation[i]) { ;//corriger car je ne rentre pas dans la condition
+            } else if (j == 10 || operation[i])
+            { ;//corriger car je ne rentre pas dans la condition
             }
         }
         //composition de a et b
-        for (int j = secondPositionD; j <= PremierPositionD; ++j) {
+        for (int j = secondPositionD; j <= PremierPositionD; ++j)
+        {
 
             nbAdd = operation[j] - 48;
             nbA = nbA + nbAdd;
-            if (j < PremierPositionD) {
+            if (j < PremierPositionD)
+            {
                 nbA = nbA * 10;
             }
             nbAdd = 0;
         }
-        for (int j = PremierPositionA; j <= secondPositionA; ++j) {
+        for (int j = PremierPositionA; j <= secondPositionA; ++j)
+        {
 
             nbAdd = operation[j] - 48;
             nbB = nbB + nbAdd;
-            if (j < secondPositionA) {
+            if (j < secondPositionA)
+            {
                 nbB = nbB * 10;
             }
             nbAdd = 0;
@@ -172,7 +195,8 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
         resulta = nbA - nbB;
         moveAndWrit(operation, secondPositionD, secondPositionA, resulta);
     }
-    void additio(char *operation, int position) {
+    void additio(char *operation, int position)
+    {
         int PremierPositionD = 0, secondPositionD = 0, PremierPositionA = 0, secondPositionA = 0, nbA = 0, nbB = 0, nbAdd = 0, resulta = 0;
         char nb[10] = {"0123456789"};
         PremierPositionD = position - 1;
@@ -181,56 +205,69 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
 
         // Determination des borne de nbA et nbB
         int decalageJ = 0;
-        for (int j = 0; j < 10; ++j) {
-            if (decalageJ == 1) {
+        for (int j = 0; j < 10; ++j)
+        {
+            if (decalageJ == 1)
+            {
                 j = 0;
                 decalageJ = 0;
             }
-            if (operation[i] == nb[j]) {
+            if (operation[i] == nb[j])
+            {
                 secondPositionD = i;
-                if (i != 0) {
+                if (i != 0)
+                {
                     decalageJ = 1;
                     i--;
                     j = 0;
                 }
-            } else if (j == 10) {
+            } else if (j == 10)
+            {
 
             }
         }
         i = position + 1;
         decalageJ = 0;
-        for (int j = 0; j < 10; j++) {
+        for (int j = 0; j < 10; j++)
+        {
             if (decalageJ == 1) {
                 j = 0;
                 decalageJ = 0;
             }
-            if (operation[i] == nb[j]) {
+            if (operation[i] == nb[j])
+            {
                 secondPositionA = i;
                 i++;
                 decalageJ = 1;
                 j = 0;// Cas spécial où j=9, on veut continuer le test pour la position suivante, donc on remet j=0 pour continuer le for
-            } else if (j == 10 || operation[i]) { ;//corriger car je ne rentre pas dans la condition
+            } else if (j == 10 || operation[i])
+            { ;//corriger car je ne rentre pas dans la condition
             }
         }
         //composition de a et b
-        for (int j = secondPositionD; j <= PremierPositionD; ++j) {
+        for (int j = secondPositionD; j <= PremierPositionD; ++j)
+        {
 
             nbAdd = operation[j] - 48;
             nbA = nbA + nbAdd;
-            if (j < PremierPositionD) {
+            if (j < PremierPositionD)
+            {
                 nbA = nbA * 10;
             }
             nbAdd = 0;
         }
-        if (secondPositionD > 0 || operation[secondPositionD - 1] == "-") {
+        if (secondPositionD > 0 || operation[secondPositionD - 1] == "-")
+        {
             nbA = -nbA;
             secondPositionD = secondPositionD - 1;
         }
-        for (int j = PremierPositionA; j <= secondPositionA; ++j) {
+        for (int j = PremierPositionA; j <= secondPositionA; ++j)
+        {
 
             nbAdd = operation[j] - 48;
             nbB = nbB + nbAdd;
-            if (j < secondPositionA) {
+            if (j < secondPositionA)
+            {
                 nbB = nbB * 10;
             }
             nbAdd = 0;
@@ -240,33 +277,40 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
     }
 
 
-void multiplication(char *operation,int position) {
+void multiplication(char *operation,int position)
+{
     int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0,negative=0;
     char nb[10]= {"0123456789"};
     PremierPositionD = position - 1;
-    if(operation[position +1] == 45){
+    if(operation[position +1] == 45)
+    {
         PremierPositionA = position + 2;
         negative=1;
-    } else{
+    } else
+    {
     PremierPositionA = position + 1;
     }
     int i = position -1;
 
     // Determination des borne de nbA et nbB
     int decalageJ = 0;
-    for (int j = 0; j < 10; ++j) {
-        if (decalageJ == 1) {
+    for (int j = 0; j < 10; ++j)
+    {
+        if (decalageJ == 1)
+        {
             j = 0;
             decalageJ = 0;
         }
-        if (operation[i] == nb[j]) {
+        if (operation[i] == nb[j])
+        {
             secondPositionD = i;
             if (i != 0){
                 i--;
                 decalageJ = 1;
                 j = 0;
             }
-        } else if( j == 10){
+        } else if( j == 10)
+        {
 
         }
     }
@@ -275,19 +319,22 @@ void multiplication(char *operation,int position) {
         i++;
     }
     decalageJ = 0;
-    for (int j = 0; j < 10; ++j) {
+    for (int j = 0; j < 10; ++j)
+    {
         if (decalageJ == 1) {
             j = 0;
             decalageJ = 0;
         }
-        if (operation[i] == nb[j]) {
+        if (operation[i] == nb[j])
+        {
             secondPositionA = i;
             if (i != 0){
                 i++;
                 decalageJ = 1;
                 j = 0;
             }
-        } else if( j == 10 || operation[i]){
+        } else if( j == 10 || operation[i])
+        {
             ;//corriger car je ne rentre pas dans la condition
         }
     }
@@ -297,7 +344,8 @@ void multiplication(char *operation,int position) {
 
         nbAdd = operation[j] - 48;
         nbA = nbA+nbAdd;
-        if(j <PremierPositionD){
+        if(j <PremierPositionD)
+        {
             nbA=   nbA * 10;
         }
         nbAdd =0;
@@ -307,10 +355,12 @@ void multiplication(char *operation,int position) {
 
         nbAdd = operation[j] - 48;
         nbB = nbB+nbAdd;
-        if(j <secondPositionA){
+        if(j <secondPositionA)
+        {
             nbB=   nbB * 10;
         }
-        if(negative == 1){
+        if(negative == 1)
+        {
             nbB = -nbB;
         }
         nbAdd =0;
@@ -320,7 +370,8 @@ void multiplication(char *operation,int position) {
 }
 
 
-void division(char *operation,int position) {
+void division(char *operation,int position)
+{
     int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
     char nb[10]= {"0123456789"};
     PremierPositionD = position - 1;
@@ -329,12 +380,14 @@ void division(char *operation,int position) {
 
     // Determination des borne de nbA et nbB
     int decalageJ = 0;
-    for (int j = 0; j < 10; ++j) {
+    for (int j = 0; j < 10; ++j)
+    {
         if (decalageJ == 1) {
             j = 0;
             decalageJ = 0;
         }
-        if (operation[i] == nb[j]) {
+        if (operation[i] == nb[j])
+        {
             secondPositionD = i;
             if (i != 0){
                 i--;
@@ -347,12 +400,14 @@ void division(char *operation,int position) {
     }
     decalageJ=0;
     i = position +1;
-    for (int j = 0; j < 10; ++j) {
+    for (int j = 0; j < 10; ++j)
+    {
         if (decalageJ == 1) {
             j = 0;
             decalageJ = 0;
         }
-        if (operation[i] == nb[j]) {
+        if (operation[i] == nb[j])
+        {
             secondPositionA = i;
             if (i != 0){
                 i++;
@@ -369,7 +424,8 @@ void division(char *operation,int position) {
 
         nbAdd = operation[j] - 48;
         nbA = nbA+nbAdd;
-        if(j <PremierPositionD){
+        if(j <PremierPositionD)
+        {
             nbA=   nbA * 10;
         }
         nbAdd =0;
@@ -379,7 +435,8 @@ void division(char *operation,int position) {
 
         nbAdd = operation[j] - 48;
         nbB = nbB+nbAdd;
-        if(j <secondPositionA){
+        if(j <secondPositionA)
+        {
             nbB=   nbB * 10;
         }
         nbAdd =0;
@@ -388,7 +445,8 @@ void division(char *operation,int position) {
     moveAndWrit(operation,secondPositionD,secondPositionA,resulta);
 }
 
-void puissance(char *operation,int position) {
+void puissance(char *operation,int position)
+{
     int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
     char nb[10]= {"0123456789"};
     PremierPositionD = position - 1;
@@ -397,30 +455,37 @@ void puissance(char *operation,int position) {
 
     // Determination des borne de nbA et nbB
     int decalageJ = 0;
-    for (int j = 0; j < 10; ++j) {
-        if (decalageJ == 1) {
+    for (int j = 0; j < 10; ++j)
+    {
+        if (decalageJ == 1)
+        {
             j = 0;
             decalageJ = 0;
         }
-        if (operation[i] == nb[j]) {
+        if (operation[i] == nb[j])
+        {
             secondPositionD = i;
             if (i != 0){
                 i--;
                 decalageJ=1;
                 j = 0;
             }
-        } else if( j == 10){
+        } else if( j == 10)
+        {
 
         }
     }
     decalageJ=0;
     i = position +1;
-    for (int j = 0; j < 10; ++j) {
-        if (decalageJ == 1) {
+    for (int j = 0; j < 10; ++j)
+    {
+        if (decalageJ == 1)
+        {
             j = 0;
             decalageJ = 0;
         }
-        if (operation[i] == nb[j]) {
+        if (operation[i] == nb[j])
+        {
             secondPositionA = i;
             if (i != 0){
                 i++;
@@ -429,7 +494,8 @@ void puissance(char *operation,int position) {
             }
 
 
-        } else if( j == 10 || operation[i]){
+        } else if( j == 10 || operation[i])
+        {
             ;//corriger car je ne rentre pas dans la condition
         }
     }
@@ -439,7 +505,8 @@ void puissance(char *operation,int position) {
 
         nbAdd = operation[j] - 48;
         nbA = nbA+nbAdd;
-        if(j <PremierPositionD){
+        if(j <PremierPositionD)
+        {
             nbA=   nbA * 10;
         }
         nbAdd =0;
@@ -455,7 +522,8 @@ void puissance(char *operation,int position) {
         nbAdd =0;
     }
     resulta = nbA;
-    for (int j = 0; j < nbB-1; ++j) {
+    for (int j = 0; j < nbB-1; ++j)
+    {
         resulta = resulta * nbA;
     }
 
@@ -470,19 +538,22 @@ void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb){
     taille = contsize(transForme);
     tailleChar = contsize(decalageDeString) ;
     decalageDeFin =positionB +1;
-    for (int i = 0; i < taille; ++i) {
+    for (int i = 0; i < taille; ++i)
+    {
         decalageDeString[position] = transForme[i];
         position++;
         fin = i;
     }
-    for (int i = positionA + taille; i <=tailleChar - positionB+2 ; ++i) {
+    for (int i = positionA + taille; i <=tailleChar - positionB+2 ; ++i)
+    {
         decalageDeString[i] =  decalageDeString[decalageDeFin];
         decalageDeFin++;
         if (fin < i){
         fin = i ;
         }
     }
-    if(decalageDeString[fin +1 ] != 10){
+    if(decalageDeString[fin +1 ] != 10)
+    {
         decalageDeString[fin +1 ] = 10;
         fin =fin +1;
     }
@@ -490,7 +561,8 @@ void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb){
 
 
 }
-void move(char* operatio,int positionA, int nb){
+void move(char* operatio,int positionA, int nb)
+{
    int positionbis = positionA,fin;
     for (int i = 0; i <= nb-positionA ; ++i)
     {
@@ -528,7 +600,8 @@ int checkIsAccepted(char *operation, int nbrchar){
     if (operation[0] == 10 || operation[0] == 32){
         error = 1;
         ok = 1;
-    } else{
+    } else
+    {
     for (i = 0; i < nbrchar; ++i)
     {
         for (j = 0; j <=18 ; ++j)
@@ -548,7 +621,7 @@ int checkIsAccepted(char *operation, int nbrchar){
             else if (j == 18 ){
                error = 1;
                 ok = 1;
-             }
+            }
             }
         }
     }
