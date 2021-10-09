@@ -40,23 +40,84 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
 {
 
     int positionBis = position + 1;
+    //---------avec parentheses ---------
+    if (parentheses == 1)
+    {
 
-    if (parentheses == 1) {
+        while (operation[positionBis] != 41)
+        {
 
-        while (operation[positionBis] != 41) {
-
-            if (operation[positionBis] == 43)//reperageg d'un addistion
+            positionBis = position;
+            while (operation[positionBis] != 41)
             {
-                additio(operation, positionBis);
-                positionBis = position + 1;
-                //tu vas fair un addition
-            } else if (operation[positionBis] == 10) {
-                positionBis = position;
+
+                if(operation[positionBis] == 94)
+                {
+                    puissance(operation,positionBis);
+                    positionBis = position;
+                }
+                positionBis++;
             }
-            positionBis++;
+            positionBis = position;
+            while (operation[positionBis] != 10) {
+                if (operation[0] == 45 &&positionBis == 0)
+                { // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
+                } else {
+                    if (operation[positionBis] == 42) { // Enfin : check si on va multiplier ou diviser
+                        multiplication(operation, positionBis);
+                        positionBis = position; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
+                    } else if (operation[positionBis] == 47)
+                    {
+                        division(operation, positionBis);
+                        positionBis = position;
+                    }
+                }
+
+                positionBis++;
+            }
+            // ICI ICI
+            positionBis = position;
+            while (operation[positionBis] != 41)
+            {
+                if (operation[0] == 45 && positionBis == 0) { // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
+                }
+                else
+                {
+                    if (operation[positionBis] == 43) { // Enfin : check si on va additionner ou soustraire
+                        if (operation[positionBis + 1] == 45)
+                        {
+                            move(operation, positionBis, taillTotalle);
+                            positionBis = position;
+                        }
+                        else
+                        {
+                            additio(operation, positionBis);
+                            positionBis = position; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
+                        }
+                    }
+                    else if (operation[positionBis] == 45)
+                    {
+                        if (operation[positionBis + 1] == 45)
+                        {
+                            operation[positionBis + 1] = 43;
+                            move(operation, positionBis, taillTotalle);
+                            positionBis = position;
+                        } else
+                        {
+                            soutraction(operation, positionBis);
+                            positionBis = position; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
+                        }
+                    }
+
+                }
+                positionBis++;
+            }
         }
         delParentheses(operation, position, positionBis, taillTotalle);
-    } else if (parentheses == 0) {
+    }
+    //---------sans parentheses ---------
+    else if (parentheses == 0)
+    {
         positionBis = 0;
         while (operation[positionBis] != 10)
         {
@@ -278,7 +339,7 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
             }
             nbAdd = 0;
         }
-        if (secondPositionD > 0 || operation[secondPositionD - 1] == "-")
+        if ((secondPositionD > 0 || operation[secondPositionD - 1] == "-" ) && operation[secondPositionD - 1] != 40 )
         {
             nbA = -nbA;
             secondPositionD = secondPositionD - 1;
@@ -599,7 +660,7 @@ void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb){
         decalageDeString[fin +1 ] = 10;
         fin =fin +1;
     }
-    decalageDeString[fin +1 ] =  NULL;
+
 
 
 }
