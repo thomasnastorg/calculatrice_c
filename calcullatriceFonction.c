@@ -574,7 +574,7 @@ void puissance(char *operation,int position)
 void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb){
     char *transForme;
     char buffer[20];
-    int taille, position = positionA, tailleChar, decalageDeFin,fin;
+    int taille, position = positionA, tailleChar, decalageDeFin,tailleOperation,fin;
 
     transForme = itoa(nb, buffer, 10) ;
     taille = contsize(transForme);
@@ -586,7 +586,7 @@ void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb){
         position++;
         fin = i;
     }
-    for (int i = positionA + taille; i <=tailleChar - positionB+2 ; ++i)
+    for (int i = positionA + taille; i <=tailleChar ; ++i)
     {
         decalageDeString[i] =  decalageDeString[decalageDeFin];
         decalageDeFin++;
