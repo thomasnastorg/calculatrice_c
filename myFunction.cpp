@@ -66,6 +66,8 @@ int myStrcmp(const char *S1,const char S2){
         return 1;
     }
 }
+
+
 void my_reverse(char str[], int len)
 {
     int start, end;

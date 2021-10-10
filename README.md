@@ -21,7 +21,12 @@ détail operation
     - Pas de gestion des espaces entre les nombres ou les opérations
     - Pas de gestion de parenthèes dans les parenthèses
 
+autre fonctionalliter 
+
+    -le Plus Grand Commun Diviseur de deux entiers pgcd exemple d'utilisation: pgcd(55,88) 
+
 gestion erreur
-tout autre caractère qu'un nombre, signé ou parenthèse declenche une erreur
+
+    -tout autre caractère qu'un nombre, signé ou parenthèse declenche une erreur
 
 vous pouvez arrêter la calculatrice en ecrivan **exit**

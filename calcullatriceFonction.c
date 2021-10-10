@@ -59,8 +59,8 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
                 positionBis++;
             }
             positionBis = position;
-            while (operation[positionBis] != 41) {
-                if (operation[0] == 45 &&positionBis == 0)
+            while (operation[positionBis] != 10) {
+                if (operation[position + 1] == 45 && positionBis == position + 1 && operation[positionBis] == 45 )
                 { // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
                 } else {
                     if (operation[positionBis] == 42) { // Enfin : check si on va multiplier ou diviser
@@ -80,7 +80,8 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
             positionBis = position;
             while (operation[positionBis] != 41)
             {
-                if (operation[0] == 45 && positionBis == 0) { // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
+                if (operation[position + 1] == 45 && positionBis == position + 1 && operation[positionBis] == 45 )
+                { // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
                 }
                 else
                 {
@@ -702,6 +703,14 @@ int checkIsAccepted(char *operation, int nbrchar){
     if (operation[0] == 10 || operation[0] == 32){
         error = 1;
         ok = 1;
+    } else if(operation[0] == 112 && operation[1] == 103 && operation[2] == 99 && operation[3] == 100){
+        for (int k = 0; k < nbrchar; ++k) {
+                if( operation[k] == 44){
+                    printf("%d\n",deconpositionPgcd(operation,k));
+                    ok = 1;
+                }
+
+        }
     } else
     {
     for (i = 0; i < nbrchar; ++i)
@@ -733,6 +742,90 @@ int checkIsAccepted(char *operation, int nbrchar){
     return ok;
 }
 
+int deconpositionPgcd(char *operation, int position){
+    int PremierPositionD =0 , secondPositionD =0 , PremierPositionA =0, secondPositionA=0,nbA=0,nbB=0,nbAdd=0, resulta = 0;
+    char nb[10]= {"0123456789"};
+    PremierPositionD = position - 1;
+    PremierPositionA = position + 1;
+    int i = position -1;
+
+    // Determination des borne de nbA et nbB
+    int decalageJ = 0;
+    for (int j = 0; j < 10; ++j)
+    {
+        if (decalageJ == 1)
+        {
+            j = 0;
+            decalageJ = 0;
+        }
+        if (operation[i] == nb[j])
+        {
+            secondPositionD = i;
+            if (i != 0){
+                i--;
+                decalageJ=1;
+                j = 0;
+            }
+        } else if( j == 10)
+        {
+
+        }
+    }
+    decalageJ=0;
+    i = position +1;
+    for (int j = 0; j < 10; ++j)
+    {
+        if (decalageJ == 1)
+        {
+            j = 0;
+            decalageJ = 0;
+        }
+        if (operation[i] == nb[j])
+        {
+            secondPositionA = i;
+            if (i != 0){
+                i++;
+                decalageJ=1;
+                j = 0;
+            }
+
+
+        } else if( j == 10 || operation[i])
+        {
+            ;//corriger car je ne rentre pas dans la condition
+        }
+    }
+    //composition de a et b
+    for (int j = secondPositionD; j <= PremierPositionD ; ++j)
+    {
+
+        nbAdd = operation[j] - 48;
+        nbA = nbA+nbAdd;
+        if(j <PremierPositionD)
+        {
+            nbA=   nbA * 10;
+        }
+        nbAdd =0;
+    }
+    for (int j = PremierPositionA; j <= secondPositionA ; ++j)
+    {
+
+        nbAdd = operation[j] - 48;
+        nbB = nbB+nbAdd;
+        if(j <secondPositionA){
+            nbB=   nbB * 10;
+        }
+        nbAdd =0;
+    }
+    return pgcd(nbA,nbB);
+}
+int pgcd(int nbr1, int nbr2)
+{
+    if (nbr2 != 0)
+        return pgcd(nbr2, nbr1%nbr2);
+    else
+        return nbr1;
+}
 void my_reverse(char str[], int len)
 {
     int start, end;

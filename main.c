@@ -22,7 +22,7 @@ int main() {
             exit(0);
         }
         // demande a l'utilisateur de saisire
-        write(1, "ecriver votre calcule:\n", 23);
+        write(1, "saisissez votre calcule:\n", 25);
        ret = read(0,monOperation,50);
         //char str2[ret];
         //strcpy(str2, monOperation);
