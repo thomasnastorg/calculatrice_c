@@ -15,8 +15,8 @@ détail operation
 
     - De multiples calculs d'affilé sont possibles dasn une même saisie utilisateur
         exemple : 2+5-3 rendra bien 4
-    - La calculatrice lira jusqu'à 50 caractères pour le calcul. 
-        ATTENTION : ne gère pas s'il y a plus de 50 caracteres. 
+    - La calculatrice lira jusqu'à 100 caractères pour le calcul. 
+        ATTENTION : ne gère pas s'il y a plus de 100 caracteres. 
         Dans ce cas, elle lira la saisie entrée comme 2 saisies indépendantes.
     - Pas de gestion des espaces entre les nombres ou les opérations
     - Pas de gestion de parenthèes dans les parenthèses
