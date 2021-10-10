@@ -59,13 +59,14 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
                 positionBis++;
             }
             positionBis = position;
-            while (operation[positionBis] != 10) {
+            while (operation[positionBis] != 41) {
                 if (operation[0] == 45 &&positionBis == 0)
                 { // Cas où le nombre à gauche est négatif, càd il y a un '-' en début de chaine
                 } else {
                     if (operation[positionBis] == 42) { // Enfin : check si on va multiplier ou diviser
                         multiplication(operation, positionBis);
                         positionBis = position; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
+
                     } else if (operation[positionBis] == 47)
                     {
                         division(operation, positionBis);
@@ -136,11 +137,11 @@ void typeOperation(char* operation, int position,int parentheses /* si vrai =1 f
             } else {
                 if (operation[positionBis] == 42) { // Enfin : check si on va multiplier ou diviser
                     multiplication(operation, positionBis);
-                    positionBis = 1; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
+                    positionBis = 0; // Je mets -1 pour qu'en sortant du if, positionBis le mette à 0 pour recommencer un nouveau check de la chaine
                 } else if (operation[positionBis] == 47)
                 {
                     division(operation, positionBis);
-                    positionBis = 1;
+                    positionBis = 0;
                 }
             }
 
@@ -661,8 +662,6 @@ void moveAndWrit(char* decalageDeString,int positionA,int positionB, int nb){
         fin =fin +1;
     }
 
-
-
 }
 void move(char* operatio,int positionA, int nb)
 {
@@ -721,7 +720,7 @@ int checkIsAccepted(char *operation, int nbrchar){
             else if(operation[0] == 101 && operation[1] == 120 && operation[2] == 105 && operation[3] == 116){
                 exit(0);
             }
-            else if (j == 18 ){
+            else if (j == 18 || (operation[i] == 40 && operation[i+1] ==41)){
                error = 1;
                 ok = 1;
             }
